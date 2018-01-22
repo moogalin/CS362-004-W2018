@@ -206,6 +206,7 @@ int shuffle(int player, struct gameState *state) {
   int card;
   int i;
 
+  //Look more into this return value case
   if (state->deckCount[player] < 1)
     return -1;
   qsort ((void*)(state->deck[player]), state->deckCount[player], sizeof(int), compare);
@@ -672,13 +673,13 @@ int play_smithy(int currentPlayer, struct gameState * state, int handPos)
 {
   int i = 0;
   //+3 Cards
-  for (i = 0; i < 3; i++)
+  for (i = 0; i <= 3; i++)
   {
     drawCard(currentPlayer, state);
   }
 
   //discard card from hand
-  discardCard(handPos, currentPlayer, state, 0);
+  discardCard(handPos, currentPlayer, state, 1);
   return 0;
 
 }
@@ -714,7 +715,7 @@ int play_mine(int currentPlayer, struct gameState * state, int choice1, int choi
     if (state->hand[currentPlayer][i] == j)
     {
       discardCard(i, currentPlayer, state, 0);
-      break;
+      //break;
     }
   }
 
@@ -800,7 +801,7 @@ int play_treasure_map(int currentPlayer, struct gameState *state, int handPos)
     }
   }
 
-  if (index > -1)
+  if (index = -1)
   {
     //trash both treasure cards
     discardCard(handPos, currentPlayer, state, 1);
