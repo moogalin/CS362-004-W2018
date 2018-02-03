@@ -786,6 +786,7 @@ int play_ambassador(int currentPlayer, struct gameState * state, int choice1, in
 
 }
 
+//treasure_map
 int play_treasure_map(int currentPlayer, struct gameState *state, int handPos)
 {
   int index;
