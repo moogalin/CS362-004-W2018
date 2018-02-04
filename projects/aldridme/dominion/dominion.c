@@ -284,15 +284,18 @@ int buyCard(int supplyPos, struct gameState *state) {
     if (DEBUG)
       printf("You do not have any buys left\n");
     return -1;
-  } else if (supplyCount(supplyPos, state) <1){
+  }
+  else if (supplyCount(supplyPos, state) <1){
     if (DEBUG)
       printf("There are not any of that type of card left\n");
     return -1;
-  } else if (state->coins < getCost(supplyPos)){
+  }
+  else if (state->coins < getCost(supplyPos)){
     if (DEBUG)
       printf("You do not have enough money to buy that. You have %d coins.\n", state->coins);
     return -1;
-  } else {
+  }
+  else {
     state->phase=1;
     //state->supplyCount[supplyPos]--;
     gainCard(supplyPos, state, 0, who); //card goes in discard, this might be wrong.. (2 means goes into hand, 0 goes into discard)
@@ -688,19 +691,25 @@ int play_mine(int currentPlayer, struct gameState * state, int choice1, int choi
 {
   int i, j;
   j = state->hand[currentPlayer][choice1];  //store card we will trash
-
+  //printf("j: %d", j);
   if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold)
   {
+    //printf("choice1: %d", state->hand[currentPlayer][choice1]);
+    //printf("inside1");
     return -1;
   }
 
   if (choice2 > treasure_map || choice2 < curse)
   {
+    //printf("inside2");
     return -1;
   }
 
+  /* This logic is wrong*/
+  //printf("cost1: %d cost2:%d]n",(getCost(state->hand[currentPlayer][choice1]) + 3),getCost(choice2) );
   if ( (getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2) )
   {
+    //printf("inside3");
     return -1;
   }
 
@@ -712,8 +721,10 @@ int play_mine(int currentPlayer, struct gameState * state, int choice1, int choi
   //discard trashed card
   for (i = 0; i < state->handCount[currentPlayer]; i++)
   {
+    //printf("in for loop\n");
     if (state->hand[currentPlayer][i] == j)
     {
+      //printf("in if\n");
       discardCard(i, currentPlayer, state, 0);
       //break;
     }
@@ -959,6 +970,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     }
 
   else if (card == village) {
+      printf("village");
       //+1 Card
       drawCard(currentPlayer, state);
 
