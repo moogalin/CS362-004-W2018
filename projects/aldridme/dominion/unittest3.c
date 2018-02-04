@@ -244,17 +244,18 @@ int gameStatesEqual(struct gameState * g_original, struct gameState * g_copy) {
   return 1;
 }
 
+void print_testName(char s[]) {
+   printf("*TEST: %s\n", s);
+}
+
 void print_testPassed(char s[]) {
-  printf("**\n");
-  printf("*       PASS: %s\n", s);
-  printf("**\n\n");
+   printf("*       PASS: %s\n", s);
 }
 
 void print_testFailed(char s[]) {
-  printf("**\n");
-  printf("*       FAIL: %s\n", s);
-  printf("**\n\n");
+   printf("*       FAIL: %s\n", s);
 }
+
 
 int rand_int(int a, int b){
   int random = (rand() % (b - a + 1) + a );

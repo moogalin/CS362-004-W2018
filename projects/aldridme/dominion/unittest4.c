@@ -244,17 +244,18 @@ int gameStatesEqual(struct gameState * g_original, struct gameState * g_copy) {
   return 1;
 }
 
+void print_testName(char s[]) {
+   printf("*TEST: %s\n", s);
+}
+
 void print_testPassed(char s[]) {
-  printf("**\n");
-  printf("*       PASS: %s\n", s);
-  printf("**\n\n");
+   printf("*       PASS: %s\n", s);
 }
 
 void print_testFailed(char s[]) {
-  printf("**\n");
-  printf("*       FAIL: %s\n", s);
-  printf("**\n\n");
+   printf("*       FAIL: %s\n", s);
 }
+
 
 int rand_int(int a, int b){
   int random = (rand() % (b - a + 1) + a );
@@ -273,6 +274,7 @@ int test_coins(int coin_denom, int coin_value) {
   player = g_res.whoseTurn;
   g_res.coins = rand() % 100; //Ensure that this random number doesn't persist
   g_res.handCount[player] = (rand() % 10) + 5; //Random number between 5 and 14
+
 
   if (coin_denom == copper){
     coinName = "copper";
@@ -311,12 +313,12 @@ int test_coins(int coin_denom, int coin_value) {
   if (g_res.coins != coins) {
     testPassed = 0;
     char msg[100] = {'\0'};
-    snprintf(&msg, sizeof(msg),"Expected %d  %s Actual %d are not equal.\n", coins,coinName, g_res.coins);
+    snprintf(&msg, sizeof(msg),"Expected %d  %s Actual %d are not equal.", coins,coinName, g_res.coins);
     print_testFailed(msg);
   }
   else {
     char msg[100] = {'\0'};
-    snprintf(&msg, sizeof(msg),"Expected %s coins and actual coins are equal.\n", coinName);
+    snprintf(&msg, sizeof(msg),"Expected %s coins and actual coins are equal.", coinName);
     print_testPassed(msg);
   }
 

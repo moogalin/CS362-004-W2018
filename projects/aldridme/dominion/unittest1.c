@@ -12,7 +12,7 @@
 int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse,
          sea_hag, tribute, smithy};
 
-/* Print game state for debugging
+/* Print game state for debugging */
 void printGameState(struct gameState * g, char s[]) {
   int i,j;
 
@@ -84,16 +84,16 @@ void printGameState(struct gameState * g, char s[]) {
   printf("\n***************************************\n");
 }
 
+void print_testName(char s[]) {
+   printf("*TEST: %s\n", s);
+}
+
 void print_testPassed(char s[]) {
-  printf("**\n");
-  printf("*       PASS: %s\n", s);
-  printf("**\n\n");
+   printf("*       PASS: %s\n", s);
 }
 
 void print_testFailed(char s[]) {
-  printf("**\n");
-  printf("*       FAIL: %s\n", s);
-  printf("**\n\n");
+   printf("*       FAIL: %s\n", s);
 }
 
 int rand_int(int a, int b){

@@ -143,17 +143,18 @@ void copyGameState(struct gameState * g_original, struct gameState * g_copy) {
   g_copy->playedCardCount = g_original->playedCardCount;
 }
 
+void print_testName(char s[]) {
+   printf("*TEST: %s\n", s);
+}
+
 void print_testPassed(char s[]) {
-  printf("**\n");
-  printf("*       PASS: %s\n", s);
-  printf("**\n\n");
+   printf("*       PASS: %s\n", s);
 }
 
 void print_testFailed(char s[]) {
-  printf("**\n");
-  printf("*       FAIL: %s\n", s);
-  printf("**\n\n");
+   printf("*       FAIL: %s\n", s);
 }
+
 
 int rand_int(int a, int b){
   int random = (rand() % (b - a + 1) + a );
@@ -199,7 +200,7 @@ int test_whoseTurn() {
     print_testFailed("Next player does not equal expected result");
   }
   else {
-    print_testPassed("When current player is last player, next player is first player")
+    print_testPassed("When current player is last player, next player is first player");
   }
 
   /* All tests passed */
