@@ -22,9 +22,17 @@ unittest1: unittest1.c dominion.o rngs.o
 unittest2: unittest2.c dominion.o rngs.o
 	gcc -o unittest2 -g unittest2.c dominion.o rngs.o $(CFLAGS)
 
-rununittests: unittest1 unittest2
+unittest3: unittest3.c dominion.o rngs.o
+	gcc -o unittest3 -g unittest3.c dominion.o rngs.o $(CFLAGS)
+
+unittest4: unittest4.c dominion.o rngs.o
+	gcc -o unittest4 -g unittest4.c dominion.o rngs.o $(CFLAGS)
+
+rununittests: unittest1 unittest2 unittest3 unittest4
 	./unittest1 &> unittest1result.out
 	./unittest2 &> unittest2result.out
+	./unittest3 &> unittest3result.out
+	./unittest4 &> unittest4result.out
 	gcov dominion.c >> unittestresults.out
 	cat dominion.c.gcov >> unittestresults.out
 
@@ -34,4 +42,4 @@ player: player.c interface.o
 all: playdom player testDrawCard testBuyCard badTestDrawCard
 
 clean:
-	rm -f *.o playdom.exe playdom unittest1 unittest2 player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe
+	rm -f *.o playdom.exe playdom unittest1 unittest2 unittest3 unittest4 player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe
