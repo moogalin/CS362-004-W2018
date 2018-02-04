@@ -46,7 +46,7 @@ runcardtests: cardtest1 cardtest2 cardtest3
 	gcov dominion.c >> unittestresults.out
 	cat dominion.c.gcov >> unittestresults.out
 
-runalltests: unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4
+unittestresults.out: unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4
 	./unittest1 &>> unittestresults.out
 	./unittest2 &>> unittestresults.out
 	./unittest3 &>> unittestresults.out
@@ -59,4 +59,4 @@ runalltests: unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtes
 	cat dominion.c.gcov >> unittestresults.out
 
 clean:
-	rm -f *.o unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 *.gcov *.gcda *.gcno *.so *.out 
+	rm -f *.o unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 *.gcov *.gcda *.gcno *.so *.out
