@@ -6,12 +6,13 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define NUM_PLAYERS 2
+#define MAX_PLAYERS 4
 #define NUM_SUPPLYCARDS 27
 
 int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse,
          sea_hag, tribute, smithy};
 
+/* Print game state for debugging
 void printGameState(struct gameState * g, char s[]) {
   int i,j;
 
@@ -107,7 +108,7 @@ int test_GameOverEmpty() {
   int testPassed = 1;
   int emptied[NUM_SUPPLYCARDS] = {0};
   struct gameState g;
-  initializeGame(2, k, rand() % 100,  &g);
+  initializeGame(MAX_PLAYERS, k, rand() % 100,  &g);
 
   /*****
   **
@@ -142,7 +143,7 @@ int test_GameOverProvince() {
   int i;
   int testPassed = 1;
   struct gameState g;
-  initializeGame(2, k, rand() % 100,  &g);
+  initializeGame(MAX_PLAYERS, k, rand() % 100,  &g);
 
   /*****
   **
@@ -175,7 +176,7 @@ int test_notGameOver() {
   int i;
   int testPassed = 1;
   struct gameState g;
-  initializeGame(2, k, rand() % 100,  &g);
+  initializeGame(MAX_PLAYERS, k, rand() % 100,  &g);
 
   /*****
   **
