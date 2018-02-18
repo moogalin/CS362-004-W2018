@@ -29,4 +29,4 @@ runrandomtests: randomtestcard1 randomtestcard2 randomtestcard3
 	cat dominion.c.gcov >> randomtestadventurer.out
 
 clean:
-	rm -f *.o randomtestcard1 randomtestcard2 randomtestcard3 *.gcov *.gcda *.gcno *.so *.out
+	rm -f *.o randomtestcard1 randomtestcard2 randomtestcard3 randomtestadventurer *.gcov *.gcda *.gcno *.so *.out

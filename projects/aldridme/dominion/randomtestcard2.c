@@ -51,12 +51,12 @@ int assertActionCount(struct gameState g_exp, struct gameState g_res, int player
 
 void randomTestIteration(int * deck, int * hand, int * actions) {
   int i, player, handPos;
-  int numPlayers = ((rand() % 2) + 2);
+  int numPlayers = ((rand() % 3) + 2);
   struct gameState g_res, g_exp;
   initializeGame(numPlayers, k, rand() % 100 + 1,  &g_res);
 
   /* Initialize necessary (used) gameState attributes */
-  g_res.whoseTurn = rand() % (numPlayers - 1);
+  g_res.whoseTurn = rand() % numPlayers;
   player = g_res.whoseTurn;
   g_res.handCount[player] = rand() % (MAX_CARDS / 4) + 1;
   g_res.deckCount[player] = rand() % (MAX_CARDS / 4) + 1;
