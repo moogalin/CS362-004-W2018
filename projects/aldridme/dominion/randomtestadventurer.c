@@ -14,7 +14,7 @@ int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse,
          sea_hag, tribute, smithy};
 
 
-/* Only assert deck count if no shuffle occurred */
+/* Test Oracle: Only assert deck count if no shuffle occurred */
 int assertDeckCount(int flag, struct gameState g_exp, struct gameState g_res, int player) {
 
   /* Test if no shuffle occurred */
@@ -26,7 +26,7 @@ int assertDeckCount(int flag, struct gameState g_exp, struct gameState g_res, in
   return -1;
 }
 
-/* Assert that discard pile does not contain a treasure */
+/* Test Oracle: Assert that discard pile does not contain a treasure */
 int assertDiscard(int flag, struct gameState g_exp, struct gameState g_res, int player) {
   int i;
 
@@ -43,7 +43,7 @@ int assertDiscard(int flag, struct gameState g_exp, struct gameState g_res, int 
 
 }
 
-/* Assert that hand increases (or not) as expected */
+/* Test Oracle: Assert that hand increases (or not) as expected */
 int assertHandCount(int flag, struct gameState g_exp, struct gameState g_res, int player) {
 
   // One treasure in hand, hand did not increase
@@ -54,7 +54,7 @@ int assertHandCount(int flag, struct gameState g_exp, struct gameState g_res, in
     return 1;
   }
 
-  // Two treasure in hand
+  // Two treasure in hand, hand increases by 1
   if (flag <= 5 && flag >= 3) {
     if (g_res.handCount[player] != (g_exp.handCount[player] + 1)) {
       return 0;
@@ -66,26 +66,20 @@ int assertHandCount(int flag, struct gameState g_exp, struct gameState g_res, in
 
 }
 
-/* Assert that one+ treasures are gained to hand */
+/* Test Oracle: Assert that one+ treasures are gained to hand */
 int assertTreasureInHand(int flag, struct gameState g_exp, struct gameState g_res, int player) {
-
-  //printf("Treasure in hand: %d and %d\n Flag: %d\n",g_res.hand[player][g_res.handCount[player] - 2],g_res.hand[player][g_res.handCount[player] - 1], flag);
   // One treasure in hand
   if ((flag == 1) | (flag == 2)) {
     if (g_res.hand[player][g_res.handCount[player] - 1] == copper) {
-      //printf("copper\n");
       return 1;
     }
     else if (g_res.hand[player][g_res.handCount[player] - 1] == silver) {
-      //printf("silver\n");
       return 1;
     }
     else if (g_res.hand[player][g_res.handCount[player] - 1] == gold) {
-      //printf("gold\n");
       return 1;
     }
     else {
-      //printf("not treasure\n");
       return 0;
     }
   }
@@ -138,7 +132,6 @@ int assertTreasureInHand(int flag, struct gameState g_exp, struct gameState g_re
 void randomTestIteration(int * treasures, int * discard, int * hand, int * deck, int * deckTotals) {
 
   int i, player, handPos;
-  int numTreasure;
   int random;
   int treasure;
   int temp;
@@ -154,8 +147,6 @@ void randomTestIteration(int * treasures, int * discard, int * hand, int * deck,
   g_res.deckCount[player] = rand() % (MAX_CARDS / 4) + 1;
   g_res.discardCount[player] = rand() % (MAX_CARDS / 4) + 1;
   g_res.playedCardCount = rand() % (MAX_CARDS / 4) + 1;
-
-  //printf("initialized states\n");
 
   //Initialize random cards in hand, deck, discard, and played stacks
   for (i = 0; i < g_res.handCount[player]; i++) {
@@ -183,19 +174,16 @@ void randomTestIteration(int * treasures, int * discard, int * hand, int * deck,
   }
 
   g_res.hand[player][handPos] = CARD;
-  //printf("initialized hand\n");
 
   // Randomly place treasure into deck and or discard
   random = rand() % 2; // 0 1 or 2 treasure placed into deck
 
   /* Randomly place one treasure in either deck or discard */
   if (random == 1) {
-    //printf("one treasure\n");
     random = rand() % 2;
     /* place single treasure in deck */
     if (random == 0) {
       flag = 1;
-      //printf("single treasure in deck\n");
       random = rand() % g_res.deckCount[player]; //random location
       treasure = (rand() % 3) + 4; //enums 4 5 or 6 are treasure cards
       g_res.deck[player][random] = treasure;
@@ -203,7 +191,6 @@ void randomTestIteration(int * treasures, int * discard, int * hand, int * deck,
     /* place single treasure in discard */
     else {
       flag = 2;
-      //printf("single treasure in discard\n");
       random = rand() % g_res.discardCount[player]; //random location
       treasure = (rand() % 3) + 4; //enums 4 5 or 6 are treasure cards
       g_res.discard[player][random] = treasure;
@@ -213,12 +200,10 @@ void randomTestIteration(int * treasures, int * discard, int * hand, int * deck,
 
   /* Randomly place one+ treasure in either deck or discard */
   else {
-    //printf("one+ treasurein deck/discard\n");
     random = rand() % 3;
     /* place both treasures in deck */
     if (random == 0) {
       flag = 3;
-      //printf("both treasures in deck\n");
       random = rand() % g_res.deckCount[player]; //random location
       temp = random;
       treasure = (rand() % 3) + 4; //enums 4 5 or 6 are treasure cards
@@ -226,7 +211,6 @@ void randomTestIteration(int * treasures, int * discard, int * hand, int * deck,
 
       // Make sure second treasure doesn't replace first
       while(1) {
-        //printf("treasure while\n");
         random = rand() % g_res.deckCount[player]; //random location
         if (random != temp) break;
         /* Deck doesn't have more than one card in it */
@@ -241,7 +225,6 @@ void randomTestIteration(int * treasures, int * discard, int * hand, int * deck,
     /* place both treasures in discard */
     else if (random == 1) {
       flag = 4;
-      //printf("both treasures in discard\n");
       random = rand() % g_res.discardCount[player]; //random location
       temp = random;
       treasure = (rand() % 3) + 4; //enums 4 5 or 6 are treasure cards
@@ -249,7 +232,6 @@ void randomTestIteration(int * treasures, int * discard, int * hand, int * deck,
 
       // Make sure second treasure doesn't replace first
       while(1) {
-        //printf("treasure while\n");
         random = rand() % g_res.discardCount[player]; //random location
         if (random != temp) break;
         /* Discard does not have more than one card in it */
@@ -264,7 +246,6 @@ void randomTestIteration(int * treasures, int * discard, int * hand, int * deck,
     /* Place one treasure in deck and one in discard */
     else {
       flag = 5;
-      //printf("one treasure in each\n");
       //Random discard location
       random = rand() % g_res.discardCount[player]; //random location
       treasure = (rand() % 3) + 4;
@@ -277,18 +258,11 @@ void randomTestIteration(int * treasures, int * discard, int * hand, int * deck,
     }
   }
 
-  //else {
-    /* No treasure in deck or hand */
-  //  printf("no treasures\n");
-  //}
-
   //Copy gameStates
   copyGameState(&g_res, &g_exp);
 
   //Play adventurer
   play_adventurer(&g_res, 0, player, -10);
-
-  //printf("success playing\n");
 
   /* Test Oracles */
   if (!assertTreasureInHand(flag, g_exp, g_res, player)) {

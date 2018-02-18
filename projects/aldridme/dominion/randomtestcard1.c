@@ -45,15 +45,16 @@ int assertThreeLostDeck(struct gameState g_exp, struct gameState g_res, int play
   return 1;
 }
 
+/* Generate random game state and call Test Oracles against it */
 void randomTestIteration(int * hand, int * discard, int * deck) {
 
     int i, player, handPos;
-    int numPlayers = ((rand() % 2) + 2);
+    int numPlayers = ((rand() % 3) + 2);
     struct gameState g_res, g_exp;
     initializeGame(numPlayers, k, rand() % 100 + 1,  &g_res);
 
     /* Initialize necessary (used) gameState attributes */
-    g_res.whoseTurn = rand() % (numPlayers - 1);
+    g_res.whoseTurn = rand() % numPlayers;
     player = g_res.whoseTurn;
     g_res.handCount[player] = rand() % (MAX_CARDS / 4) + 1;
     g_res.deckCount[player] = rand() % (MAX_CARDS / 4) + 1;
@@ -62,20 +63,20 @@ void randomTestIteration(int * hand, int * discard, int * deck) {
 
     //Initialize random cards in hand, deck, discard, and played stacks
     for (i = 0; i < g_res.handCount[player]; i++) {
-      g_res.hand[player][i] = k[rand() % 9];
+      g_res.hand[player][i] = k[rand() % 10];
     }
     for (i = 0; i < g_res.deckCount[player]; i++) {
-      g_res.deck[player][i] = k[rand() % 9];
+      g_res.deck[player][i] = k[rand() % 10];
     }
     for (i = 0; i < g_res.discardCount[player]; i++) {
-      g_res.discard[player][i] = k[rand() % 9];
+      g_res.discard[player][i] = k[rand() % 10];
     }
     for (i = 0; i < g_res.playedCardCount; i++) {
-      g_res.playedCards[i] = k[rand() % 9];
+      g_res.playedCards[i] = k[rand() % 10];
     }
 
     /* Initialize random position and assign Smithy card to it */
-    handPos = rand() % g_res.handCount[player] - 1;
+    handPos = rand() % g_res.handCount[player];
 
     if (handPos < 0) {
       handPos = 0;

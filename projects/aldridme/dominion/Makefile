@@ -17,7 +17,7 @@ randomtestcard2: randomtestcard2.c test_helpers.o dominion.o rngs.o
 randomtestadventurer: randomtestadventurer.c test_helpers.o dominion.o rngs.o
 	gcc -o randomtestadventurer -g randomtestadventurer.c test_helpers.o dominion.o rngs.o $(CFLAGS)
 
-runrandomtests: randomtestcard1 randomtestcard2 randomtestcard3
+runrandomtests: randomtestcard1 randomtestcard2 randomtestadventurer
 	./randomtestcard1 &>> randomtestcard1.out
 	./randomtestcard2 &>> randomtestcard2.out
 	./randomtestadventurer &>> randomtestadventurer.out

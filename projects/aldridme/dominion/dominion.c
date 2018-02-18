@@ -804,6 +804,8 @@ int play_village(int currentPlayer, struct gameState * state, int handPos){
 
   //discard played card from hand
   discardCard(handPos, currentPlayer, state, 0);
+
+  return 0;
 }
 
 int play_treasure_map(int currentPlayer, struct gameState *state, int handPos)
@@ -821,7 +823,7 @@ int play_treasure_map(int currentPlayer, struct gameState *state, int handPos)
     }
   }
 
-  if (index = -1)
+  if (index == -1)
   {
     //trash both treasure cards
     discardCard(handPos, currentPlayer, state, 1);
