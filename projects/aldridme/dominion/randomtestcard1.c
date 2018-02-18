@@ -9,7 +9,7 @@
 #include <string.h>
 
 #define CARD smithy
-#define ITERATIONS 10000
+
 
 int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse,
          sea_hag, tribute, smithy};

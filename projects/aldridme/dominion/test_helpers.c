@@ -250,7 +250,7 @@ void print_testPassed(char s[]) {
 }
 
 void print_testFailed(char s[]) {
-   printf("*       FAIL: %s\n", s);
+   printf("*       RESULT: %s\n", s);
 }
 
 int rand_int(int a, int b){

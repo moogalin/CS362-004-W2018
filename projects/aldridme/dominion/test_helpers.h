@@ -4,6 +4,7 @@
 #define MAX_PLAYERS 4
 #define MAX_CARDS 500
 #define NUM_SUPPLYCARDS 27
+#define ITERATIONS 100
 
 
 void printGameState(struct gameState * g, char s[]);

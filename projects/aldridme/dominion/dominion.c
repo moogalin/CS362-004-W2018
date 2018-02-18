@@ -646,17 +646,24 @@ int getCost(int cardNumber)
 
 int play_adventurer(struct gameState *state, int drawntreasure, int currentPlayer, int z)
 {
+  //printf("play adventurer\n");
   int cardDrawn;
   int temphand[MAX_HAND];
   while(drawntreasure<2){
+    //printf("in while\n");
     if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
+      //printf("shuffle\n");
       shuffle(currentPlayer, state);
     }
+    //printf("draw\n");
     drawCard(currentPlayer, state);
     cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
-    if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
+    if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold) {
+      //printf("drawntreasure\n");
       drawntreasure++;
+    }
     else{
+      //printf("not treasure\n");
       temphand[z]=cardDrawn;
       state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
       z++;
@@ -784,6 +791,17 @@ int play_ambassador(int currentPlayer, struct gameState * state, int choice1, in
 
   return 0;
 
+}
+
+int play_village(int currentPlayer, struct gameState * state, int handPos){
+  //+1 Card
+  drawCard(currentPlayer, state);
+
+  //+2 Actions
+  state->numActions = state->numActions + 2;
+
+  //discard played card from hand
+  discardCard(handPos, currentPlayer, state, 0);
 }
 
 int play_treasure_map(int currentPlayer, struct gameState *state, int handPos)
@@ -958,15 +976,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     }
 
   else if (card == village) {
-      //+1 Card
-      drawCard(currentPlayer, state);
 
-      //+2 Actions
-      state->numActions = state->numActions + 2;
-
-      //discard played card from hand
-      discardCard(handPos, currentPlayer, state, 0);
-      return 0;
+      return play_village(currentPlayer, state, handPos);
     }
 
   else if (card == baron) {
