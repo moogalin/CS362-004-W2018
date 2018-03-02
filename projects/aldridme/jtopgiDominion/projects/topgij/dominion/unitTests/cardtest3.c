@@ -17,7 +17,12 @@ int test_TwoTreasureInDeck() { //No shuffle needed
   int card = adventurer;
   int testPassed = 1;
   char msg[255] = {'\0'};
-  int i, player, choice1, choice2, choice3, handPos, coinBonus = 0;
+  int i, player;
+  int choice1 = 0;
+  int choice2 = 0;
+  int choice3 = 0;
+  int handPos = 0;
+  int coinBonus = 0;
   struct gameState g_res, g_exp;
 
   print_testName("Verify that two treasures in deck works as expected");
@@ -42,7 +47,7 @@ int test_TwoTreasureInDeck() { //No shuffle needed
 
   //play_adventurer(&g_res, 0, g_res.whoseTurn, 0);
 
-  cardEffect(card, choice1, choice2, choice3, &g_res, handPos, &coinBonus);
+  cardEffect(6, choice1, choice2, choice3, &g_res, handPos, &coinBonus);
 
   /* Verify that deck decreased by 2 */
   g_exp.deckCount[player] = g_exp.deckCount[player] - 2;
@@ -101,7 +106,12 @@ int test_noTreasureInDeck() { //No shuffle needed
   int card = adventurer;
   int testPassed = 1;
   char msg[255] = {'\0'};
-  int shuffled, i, player, choice1, choice2, choice3, handPos, coinBonus = 0;
+  int shuffled, i, player = 0;
+  int choice1 = 0;
+  int choice2 = 0;
+  int choice3 = 0;
+  int handPos = 0;
+  int coinBonus = 0;
   struct gameState g_res, g_exp;
 
   print_testName("Verify that no treasure in deck works as expected");
@@ -128,7 +138,7 @@ int test_noTreasureInDeck() { //No shuffle needed
   copyGameState(&g_res, &g_exp);
 
   //play_adventurer(&g_res, 0, g_res.whoseTurn, 0);
-  cardEffect(card, choice1, choice2, choice3, &g_res, handPos, &coinBonus);
+  cardEffect(6, choice1, choice2, choice3, &g_res, handPos, &coinBonus);
 
 
   /* Verify that deck is different (shuffled) */

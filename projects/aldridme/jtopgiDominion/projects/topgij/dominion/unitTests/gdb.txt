@@ -1,0 +1,18 @@
+The program being debugged has been started already.
+Start it from the beginning? (y or n) 
+Starting program: /nfs/stak/users/aldridme/CS362/Assignment5/unitTests/cardtest3 
+
+Program received signal SIGSEGV, Segmentation fault.
+0x0000000000407b76 in discardCard (handPos=0, currentPlayer=0, 
+    state=0x7fffffff7880, trashFlag=0) at dominion.c:1251
+1251	    state->playedCards[state->playedCardCount] = state->hand[currentPlayer][handPos];
+#0  0x0000000000407b76 in discardCard (handPos=0, currentPlayer=0, 
+    state=0x7fffffff7880, trashFlag=0) at dominion.c:1251
+#1  0x0000000000405587 in council_roomEffect (currentPlayer=0, 
+    state=0x7fffffff7880, handPos=0) at dominion.c:688
+#2  0x0000000000405847 in cardEffect (card=7, choice1=0, 
+    choice2=0, choice3=0, state=0x7fffffff7880, handPos=0, 
+    bonus=0x7fffffffdf3c) at dominion.c:746
+#3  0x00000000004012ec in test_TwoTreasureInDeck ()
+    at cardtest3.c:50
+#4  0x00000000004020d3 in main () at cardtest3.c:206
