@@ -1,0 +1,139 @@
+Assignment 5
+Megan Aldridge 
+BugsInTeammateCode.txt
+=============================================================================
+
+Title: Smithy Card is not updating hand and deck count correctly    
+
+Class: Software Defect (bug)
+
+Date: March 1, 2018      
+Reported By: Megan Aldridge 
+Email: aldridme@oregonstate.edu
+
+Product: Dominion Game (Dominion.C)       Version: Assignment 2 Edition 
+Platform: Unix Server                     Version: 3.10.0-693.11.1.e17.x86_64
+Browser: N/A                              Version: N/A
+URL: https://github.com/jtopgi/CS362-004-W2018/tree/topgij-assignment-2 (repository)        
+
+Is it reproducible: 
+Yes, the bug is consistently reproducible. With both unit and random testing this is reproducible. With random testing, the hand count error occurs in 9995/10000 random game states. Additionally, the deck count error occurs in 9997/10000 random game states. This suggests that there is a small amount of game states that may trigger a false success, but for a large majority of Smithy cards played, this error occurs. 
+
+Description
+===========
+When a player plays the Smithy type card, they draw 3 cards to their hand. In addition, the Smithy card that they played goes to the discard pile. As a result, their hand should have a net increase of 2 cards (+3 new cards and   -1 Smithy). However, the player has 3 extra cards in their hand after Smithy is played. Once the 3 cards are drawn, the player’s discard pile should also have 3 less cards in it but it has 5 less cards in it. 
+
+Estimated Severity: 2
+--------------------------
+	Although this is not the most severe bug, ie. Dominion will still run and if this card is not played the game *should* otherwise be unaffected. However, as soon as this card is played the game state is errored.  
+
+Estimated Priority: 2
+--------------------------
+	This bug should be held at a priority just under “show stopper” bugs because this bug is consistently reproducible and affects the game state if it occurs. 
+
+Steps to Produce/Reproduce
+--------------------------
+1) Ensure game state with the following information:
+	Current player is going to play the “Smithy” card 
+	Current player’s current hand Position is the location of “Smithy”
+2) Record number of cards in player’s hand before playing “Smithy”
+3) Record number of cards in player’s deck before playing “Smithy”
+4) Play “Smithy” with current player
+5) Record number of cards in player’s hand after playing “Smithy” 
+6) Record number of cards in player’s deck before playing “Smithy”
+7) Verify that the player has +3 cards in hand (+1 more than expected)
+8) Verify that the player has -5 cards in deck (-2 more than expected) 
+ 
+Expected Results
+----------------
+The expected number of cards in a player’s hand after they play the Smithy card is a net increase of +2 cards in their hand. 
+The expected number of cards in a player’s deck after they play the Smithy card is a net decrease of 3 cards in their deck.
+
+Actual Results
+--------------
+The actual number of cards in a player’s hand after they play the Smithy card is a net increase of +3 cards in their hand (+1 more than expected). 
+The actual number of cards in a player’s deck after they play the Smithy card is a net decrease of 5 cards in their deck (-2 more than expected).
+
+Workarounds
+-----------
+Unlikely, this bug occurs in thousands of randomly generated game states. 
+
+Attachments
+-----------
+See Randomtestcard1.out file and unittestresults.out file for specific outputs from failure. 
+
+Other Information
+-----------------
+Since the player’s hand has one too many cards in their hand at the end of the turn, the likely location of the error is where the player draws a card. 
+
+From Dominion.c line 699: 
+
+for (int i = 0; i < 4; i++) //intentional bug
+  {
+    drawCard(currentPlayer, state);
+  
+
+============================================================================
+
+Title: Village card is not updating players’ actions as expected     
+
+Class: Software Defect (bug)
+
+Date: March 1, 2018      
+Reported By: Megan Aldridge 
+Email: aldridme@oregonstate.edu
+
+Product: Dominion Game (Dominion.C)       Version: Assignment 2 Edition 
+Platform: Unix Server                     Version: 3.10.0-693.11.1.e17.x86_64
+Browser: N/A                              Version: N/A
+URL: https://github.com/jtopgi/CS362-004-W2018/tree/topgij-assignment-2 (repository)        
+
+Is it reproducible: 
+Yes, the bug is completely reproducible. Not only does it occur in each run of the unit tests for the Village card, it occurred in 10000 out of 10000 random test runs with randomly generated game states.  
+
+Description
+===========
+When a player plays the Village card, they are supposed to gain +1 card to their hand and +2 actions. However, when the Village card is played, the player’s number of actions is +1 action more than expected. This bug indicates that the player is being given one more action than they should be.  
+
+
+Steps to Produce/Reproduce
+--------------------------
+1) Ensure game state with the following information:
+	Current player is going to play the “Village” card 
+	Current player’s current hand Position is the location of “Village”
+2) Record number of actions that player has before playing “Village”
+3) Play “Village” with current player
+5) Record number of actions that player has after playing “Village” 
+8) Verify that the player has +3 actions (one more than the +2 actions expected)  
+ 
+
+Expected Results
+----------------
+The expected number of actions that a player has after they play the Village card is an increase of +2 actions. 
+
+
+Actual Results
+--------------
+The actual number of actions that a player has after they play the Village card is an increase of +3 actions.  
+
+
+Workarounds
+-----------
+
+Unlikely. This bug occurs in thousands of randomly generated game states. 
+
+
+Attachments
+-----------
+See Randomtestcard2.out file and unittestresults.out file for specific outputs from failure. 
+
+
+Other Information
+-----------------
+Since the player has one too many action at the end of their turn, it is likely that the code for “Village” is incrementing the player’s action total by one extra value.  
+
+From Dominion.c line 713: 
+
+  //+2 Actions
+  state->numActions = state->numActions + 3; //intentional bug 
+
