@@ -89,7 +89,8 @@ void randomTestIteration(int * deck, int * hand, int * actions) {
   copyGameState(&g_res, &g_exp);
 
   //Play village
-  play_village(player, &g_res, handPos);
+  //play_village(player, &g_res, handPos);
+  cardEffect(village, 0, 0, 0, &g_res,handPos,0);
 
   /* Test Oracles */
   //Assert Deck Count decreases by one

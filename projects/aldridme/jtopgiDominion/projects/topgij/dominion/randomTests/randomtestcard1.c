@@ -88,7 +88,8 @@ void randomTestIteration(int * hand, int * discard, int * deck) {
     copyGameState(&g_res, &g_exp);
 
     //Play Smithy
-    play_smithy(player, &g_res, handPos);
+    //play_smithy(player, &g_res, handPos);
+    cardEffect(smithy, 0, 0, 0, &g_res,handPos,0);
 
     /* Test Oracles */
     //Assert hand contains 3 additional cards minus smithy played

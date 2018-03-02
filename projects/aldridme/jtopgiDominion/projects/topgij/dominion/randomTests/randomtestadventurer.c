@@ -262,7 +262,8 @@ void randomTestIteration(int * treasures, int * discard, int * hand, int * deck,
   copyGameState(&g_res, &g_exp);
 
   //Play adventurer
-  play_adventurer(&g_res, 0, player, -10);
+  //play_adventurer(&g_res, 0, player, -10);
+  cardEffect(adventurer, 0, 0, 0, &g_res, 0, 0);
 
   /* Test Oracles */
   if (!assertTreasureInHand(flag, g_exp, g_res, player)) {
