@@ -102,15 +102,126 @@ public class UrlValidatorTest extends TestCase {
    
    public void testYourFirstPartition()
    {
-	 //You can use this function to implement your First Partition testing	   
+	   /* 
+	    * Assert 
+	    * (blank)
+	    * is invalid 
+	    * */ 
+       UrlValidator urlValidator = new UrlValidator();
+       String url = "";
+       boolean isValid = false;
+       System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
 
    }
    
    public void testYourSecondPartition(){
-		 //You can use this function to implement your Second Partition testing	   
-
+	   /* 
+	    * Assert "ftp" is invalid when
+	    * not in allowed schemes 
+	    * */ 
+	   String[] schemes1 = {"http","https"};
+       UrlValidator urlValidator1 = new UrlValidator(schemes1);
+       String url = "ftp://your.website.com";
+       boolean isValid = false;
+       System.out.println(url + " expected " + isValid + ", returned " + urlValidator1.isValid(url)); 
+       
+       	/* 
+	    * Assert "ftp" is valid when
+	    * in allowed schemes 
+	    * */ 
+	   String[] schemes2 = {"http","https", "ftp"};
+       UrlValidator urlValidator2 = new UrlValidator(schemes2);
+       url = "ftp://www.google.com";
+       isValid = true;
+       System.out.println(url + " expected " + isValid + ", returned " + urlValidator2.isValid(url));
+       
+       
+       /* 
+	    * Assert "http" is valid when
+	    * in allowed schemes 
+	    * */ 
+       url = "http://www.google.com";
+       isValid = true;
+       System.out.println(url + " expected " + isValid + ", returned " + urlValidator2.isValid(url));
+       
+       /* 
+	    * Assert "3ht" is invalid scheme
+	    * */ 
+       url = "3ht://www.google.com";
+       isValid = false;
+       System.out.println(url + " expected " + isValid + ", returned " + urlValidator2.isValid(url));
+       
    }
-   //You need to create more test cases for your Partitions if you need to 
+  
+   public void testYourThirdPartition(){
+	   /* 
+	    * Assert "aaa" is invalid authority 
+	    * */ 
+       UrlValidator urlValidator = new UrlValidator();
+       String url = "http://aaa";
+       boolean isValid = false;
+       System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url)); 
+       
+       /* 
+	    * Assert "stackoverflow.com" is valid authority 
+	    * */ 
+       url = "https://stackoverflow.com";
+       isValid = true;
+       System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
+       
+       /* 
+	    * Assert "256.256.256.256" is invalid authority
+	    * */ 
+       url = "http://256.256.256.256";
+       isValid = false;
+       System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
+       
+   } 
+
+   public void testYourForthPartition(){
+	   /* 
+	    * Assert ":0" is a valid port 
+	    * */ 
+       UrlValidator urlValidator = new UrlValidator();
+       String url = "http://www.google.com:0";
+       boolean isValid = true;
+       System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
+       
+       /* 
+	    * Assert ":-1" is an invalid port
+	    * */ 
+       url = "http://www.google.com:-1";
+       isValid = false;
+       System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
+       
+       /* 
+	    * Assert ":a" is an invalid port
+	    * */ 
+       url = "http://www.google.com:a";
+       isValid = false;
+       System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
+       
+   }
+   
+   public void testYourFifthPartition(){
+	   /* 
+	    * Assert "/file" is a valid path 
+	    * */ 
+       UrlValidator urlValidator = new UrlValidator();
+       String url = "http://www.google.com/file";
+       boolean isValid = true;
+       System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
+       
+       /* 
+	    * Assert "/../" is an invalid path
+	    * */ 
+       url = "http://www.google.com/../";
+       isValid = false;
+       System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
+       
+   }
+   
+ 
    
    public void testIsValid()
    {
