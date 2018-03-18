@@ -291,18 +291,20 @@ public class UrlValidatorTest extends TestCase {
    
    public void testIsValid()
    {
+	   int numTests = 25;
+	   int failedTestCount = 0;
 	   System.out.println("\nSTARTING: testIsValid");
 	   
 	   /* Odd indexed Strings in array are incorrect. */
 	   String[] schemes = new String[]{ "http://", "3ht://", "ftp://", "http:/", "h3t://", "http:", "" };
 	   String[] authority = new String[]{"www.google.com", "256.256.256.256", "go.com", "1.2.3.4.5", "go.au", ""};
 	   String[] port = new String[]{":80", ":-1", ":65535", ":65636", ":0", ":65a"};
-	   /*First five are paths and last four are pathoptions*/
+	   /*First five are paths and last five are pathoptions*/
 	   String[] pathAndPathOptions = new String[]{"/test1", "/..", "/t123", "/../", "/test1/file", "/..//file", "", "/#", "/$23/file", "/#/file", "/test1//file"};
 	   
 	   UrlValidator urlValidator = new UrlValidator(schemes);
 	   
-	   for (int i = 0; i <= 25; i++) {
+	   for (int i = 0; i <= numTests; i++) {
 		   Random ran = new Random();
 		   int schemeIndex = ran.nextInt(schemes.length);
 		   ran = new Random();
@@ -315,6 +317,8 @@ public class UrlValidatorTest extends TestCase {
 		   boolean isValid = true;	   
 		   if(schemeIndex % 2 == 1 || authorityIndex % 2 == 1 || portIndex % 2 == 1 || pathAndPathOptionsIndex % 2 == 1) {
 			    isValid = false;
+			    failedTestCount++;
+			    
 		   }
 		   
 		   String url = schemes[schemeIndex] + authority[authorityIndex] + port[portIndex] + pathAndPathOptions[pathAndPathOptionsIndex];
@@ -326,6 +330,7 @@ public class UrlValidatorTest extends TestCase {
 		   }
 	   }
 	   System.out.println("COMPLETED: testIsValid\n");
+	   assertEquals(0, failedTestCount);
    }
    
 
