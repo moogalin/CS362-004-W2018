@@ -110,6 +110,7 @@ public class UrlValidatorTest extends TestCase {
 		assertEquals(url, isValid, urlValidator.isValid(url));
 	}
 
+  
    public void testYourFirstPartition()
    {
 	   /* 
@@ -119,23 +120,27 @@ public class UrlValidatorTest extends TestCase {
 	    * */ 
        UrlValidator urlValidator = new UrlValidator();
        String url = "";
-       boolean isValid = false;
-       System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
-
+       boolean isValid = false; 
+       assertEquals(url, isValid, urlValidator.isValid(url));
+       
    }
-   
+
+	   
    public void testYourSecondPartition(){
 	   /* 
 	    * Assert "ftp" is invalid when
 	    * not in allowed schemes 
 	    * */ 
+	   boolean correct = true;
 	   String[] schemes1 = {"http","https"};
        UrlValidator urlValidator1 = new UrlValidator(schemes1);
        String url = "ftp://your.website.com";
        boolean isValid = false;
-       System.out.println(url + " expected " + isValid + ", returned " + urlValidator1.isValid(url)); 
-       
-       	/* 
+       if(urlValidator1.isValid(url)) {
+    	   System.out.println(url + " expected " + isValid + ", returned " + urlValidator1.isValid(url)); 
+    	   correct = false;
+       }       
+       /* 
 	    * Assert "ftp" is valid when
 	    * in allowed schemes 
 	    * */ 
@@ -143,92 +148,143 @@ public class UrlValidatorTest extends TestCase {
        UrlValidator urlValidator2 = new UrlValidator(schemes2);
        url = "ftp://www.google.com";
        isValid = true;
-       System.out.println(url + " expected " + isValid + ", returned " + urlValidator2.isValid(url));
-       
-       
+       if(!urlValidator2.isValid(url)) {
+    	   System.out.println(url + " expected " + isValid + ", returned " + urlValidator2.isValid(url));
+    	   correct = false;
+       }    
        /* 
 	    * Assert "http" is valid when
 	    * in allowed schemes 
 	    * */ 
        url = "http://www.google.com";
        isValid = true;
-       System.out.println(url + " expected " + isValid + ", returned " + urlValidator2.isValid(url));
-       
+       if(!urlValidator2.isValid(url)) {
+    	   System.out.println(url + " expected " + isValid + ", returned " + urlValidator2.isValid(url));
+    	   correct = false;
+       }
        /* 
 	    * Assert "3ht" is invalid scheme
 	    * */ 
        url = "3ht://www.google.com";
        isValid = false;
-       System.out.println(url + " expected " + isValid + ", returned " + urlValidator2.isValid(url));
-       
+       if(urlValidator2.isValid(url)) {
+    	   System.out.println(url + " expected " + isValid + ", returned " + urlValidator2.isValid(url));
+    	   correct = false;
+       }
+       /* 
+	    * Assert "https" is valid
+	    * */ 
+       UrlValidator urlValidator3 = new UrlValidator();
+       url = "https://go.com";
+       isValid = true;
+       if(!urlValidator3.isValid(url)) {
+    	   System.out.println(url + " expected " + isValid + ", returned " + urlValidator3.isValid(url)); 
+    	   correct = false;
+       }
+       /*
+        * Assert schemes have passed
+        */
+       assert(correct);
    }
-  
+
+
    public void testYourThirdPartition(){
 	   /* 
 	    * Assert "aaa" is invalid authority 
 	    * */ 
-       UrlValidator urlValidator = new UrlValidator();
+	   boolean correct = true;
+	   UrlValidator urlValidator = new UrlValidator();
        String url = "http://aaa";
        boolean isValid = false;
-       System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url)); 
-       
+       if(urlValidator.isValid(url)) {
+    	   System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url)); 
+    	   correct = false;
+       }
        /* 
 	    * Assert "stackoverflow.com" is valid authority 
 	    * */ 
        url = "https://stackoverflow.com";
        isValid = true;
-       System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
-       
+       if(!urlValidator.isValid(url)) {
+    	   System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
+    	   correct = false;
+       }
        /* 
 	    * Assert "256.256.256.256" is invalid authority
 	    * */ 
        url = "http://256.256.256.256";
        isValid = false;
-       System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
-       
+       if(urlValidator.isValid(url)) {
+    	   System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
+    	   correct = false;
+       }
+       /*
+        * Assert authorities passed
+        */
+       assert(correct);
    } 
 
-   public void testYourForthPartition(){
+   public void testYourFourthPartition(){
 	   /* 
 	    * Assert ":0" is a valid port 
 	    * */ 
-       UrlValidator urlValidator = new UrlValidator();
+       boolean correct = true;
+	   UrlValidator urlValidator = new UrlValidator();
        String url = "http://www.google.com:0";
        boolean isValid = true;
-       System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
-       
+       if(!urlValidator.isValid(url)) {
+    	   System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
+    	   correct = false;
+       }
        /* 
 	    * Assert ":-1" is an invalid port
 	    * */ 
        url = "http://www.google.com:-1";
        isValid = false;
-       System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
-       
+       if(urlValidator.isValid(url)) {
+    	   System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
+    	   correct = false;
+       }
        /* 
 	    * Assert ":a" is an invalid port
 	    * */ 
        url = "http://www.google.com:a";
        isValid = false;
-       System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
-       
+       if(urlValidator.isValid(url)) {
+    	   System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
+    	   correct = false;
+       }
+       /*
+        * Assert ports have passed
+        */
+       assert(correct);
    }
-  
+   
    public void testYourFifthPartition(){
 	   /* 
 	    * Assert "/file" is a valid path 
 	    * */ 
-       UrlValidator urlValidator = new UrlValidator();
+       boolean correct = true;
+	   UrlValidator urlValidator = new UrlValidator();
        String url = "http://www.google.com/file";
        boolean isValid = true;
-       System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
-       
+       if(!urlValidator.isValid(url)) {
+    	   System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
+    	   correct = false;
+       }
        /* 
 	    * Assert "/../" is an invalid path
 	    * */ 
        url = "http://www.google.com/../";
        isValid = false;
-       System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
-       
+       if(urlValidator.isValid(url)) {
+    	   System.out.println(url + " expected " + isValid + ", returned " + urlValidator.isValid(url));
+    	   correct = false;
+       }
+       /*
+        * Assert paths have passed
+        */
+       assert(correct);
    }
    
  
