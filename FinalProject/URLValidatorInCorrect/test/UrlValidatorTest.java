@@ -225,8 +225,40 @@ public class UrlValidatorTest extends TestCase {
    
    public void testIsValid()
    {
-	   //You can use this function for programming based testing
-
+	   System.out.println("\nSTARTING: testIsValid");
+	   UrlValidator urlValidator = new UrlValidator();
+	   
+	   /* Odd indexed Strings in array are incorrect. */
+	   String[] schemes = new String[]{ "http://", "3ht://", "ftp://", "http:/", "h3t://", "http:", "" };
+	   String[] authority = new String[]{"www.google.com", "256.256.256.256", "go.com", "1.2.3.4.5", "go.au", ""};
+	   String[] port = new String[]{":80", ":-1", ":65535", ":65636", ":0", ":65a"};
+	   /*First five are paths and last four are pathoptions*/
+	   String[] pathAndPathOptions = new String[]{"/test1", "/..", "/t123", "/../", "/test1/file", "/..//file", "", "/#", "/$23/file", "/#/file", "/test1//file"};
+	   
+	   for (int i = 0; i <= 25; i++) {
+		   Random ran = new Random();
+		   int schemeIndex = ran.nextInt(schemes.length);
+		   ran = new Random();
+		   int authorityIndex = ran.nextInt(authority.length);
+		   ran = new Random();
+		   int portIndex = ran.nextInt(port.length);
+		   ran = new Random();
+		   int pathAndPathOptionsIndex = ran.nextInt(pathAndPathOptions.length);
+		   
+		   boolean isValid = true;	   
+		   if(schemeIndex % 2 == 1 || authorityIndex % 2 == 1 || portIndex % 2 == 1 || pathAndPathOptionsIndex % 2 == 1) {
+			    isValid = false;
+		   }
+		   
+		   String url = schemes[schemeIndex] + authority[authorityIndex] + port[portIndex] + pathAndPathOptions[pathAndPathOptionsIndex];
+		   Boolean result = urlValidator.isValid(url);
+		   if(result == isValid) {
+			   System.out.println("SUCCESS: " + url + " is " + isValid);
+		   } else {
+			   System.out.println("ERROR: " + url + " is supposed to be " + isValid);
+		   }
+	   }
+	   System.out.println("COMPLETED: testIsValid\n");
    }
    
 
