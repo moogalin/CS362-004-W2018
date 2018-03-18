@@ -104,10 +104,7 @@ public class UrlValidatorTest extends TestCase {
 		String url = "";
 		boolean isValid = false;
 		assertEquals(url, isValid, urlValidator.isValid(url));
-		
-		url = "http://www.google.com";
-		isValid = false;
-		assertEquals(url, isValid, urlValidator.isValid(url));
+
 	}
 
   
