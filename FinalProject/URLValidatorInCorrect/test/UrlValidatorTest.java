@@ -226,7 +226,6 @@ public class UrlValidatorTest extends TestCase {
    public void testIsValid()
    {
 	   System.out.println("\nSTARTING: testIsValid");
-	   UrlValidator urlValidator = new UrlValidator();
 	   
 	   /* Odd indexed Strings in array are incorrect. */
 	   String[] schemes = new String[]{ "http://", "3ht://", "ftp://", "http:/", "h3t://", "http:", "" };
@@ -234,6 +233,8 @@ public class UrlValidatorTest extends TestCase {
 	   String[] port = new String[]{":80", ":-1", ":65535", ":65636", ":0", ":65a"};
 	   /*First five are paths and last four are pathoptions*/
 	   String[] pathAndPathOptions = new String[]{"/test1", "/..", "/t123", "/../", "/test1/file", "/..//file", "", "/#", "/$23/file", "/#/file", "/test1//file"};
+	   
+	   UrlValidator urlValidator = new UrlValidator(schemes);
 	   
 	   for (int i = 0; i <= 25; i++) {
 		   Random ran = new Random();
