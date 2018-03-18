@@ -20,84 +20,92 @@ public class UrlValidatorTest extends TestCase {
    }
 
    
-   public void testManualTest1() {
-	   /* 
-	    * Assert 
-	    * http://www.google.com 
-	    * is valid */
-	   String[] schemes = {"http", "https"};
-       UrlValidator urlValidator = new UrlValidator(schemes);
-	   String url = "http://www.google.com";
-	   boolean isValid = true;  
-	   assertEquals(url, isValid, urlValidator.isValid(url));
-   }
-   
-   public void testManualTest2() {
-	   /* 
-	    * Assert 
-	    * https://www.google.com 
-	    * is valid 
-	    * */
-	   String[] schemes = {"http", "https"};
-       UrlValidator urlValidator = new UrlValidator(schemes);
-	   String url = "https://www.google.com";
-	   boolean isValid = true;  
-	   assertEquals(url, isValid, urlValidator.isValid(url));
-   }   
-   
-   public void testManualTest3() {
-	   /* 
-	    * Assert 
-	    * https://www.yahoo.com/?err=404&err_url=https%3a%2f%2fwww.yahoo.com%2ftech%2frc%2fdesktops%2f102 
-	    * is valid 
-	    * */ 
-	   String[] schemes = {"http","https"};
-       UrlValidator urlValidator = new UrlValidator(schemes);
-       String url = "https://www.yahoo.com/?err=404&err_url=https%3a%2f%2fwww.yahoo.com%2ftech%2frc%2fdesktops%2f102";
-       boolean isValid = true;
-       assertEquals(url, isValid, urlValidator.isValid(url));
-   }
-   
-   public void testManualTest4() {
-	   /* 
-	    * Assert 
-	    * https://www.yahoo.com/?err=404&err_url=https%3a%2f%2fwww.yahoo.com%2ftech%2frc%2fdesktops%2f102 
-	    * is valid 
-	    * */ 
-	   String[] schemes = {"http","https"};
-       UrlValidator urlValidator = new UrlValidator(schemes);
-       String url = "https://www.yahoo.com/?err=404&err_url=https%3a%2f%2fwww.yahoo.com%2ftech%2frc%2fdesktops%2f102";
-       boolean isValid = true;
-       assertEquals(url, isValid, urlValidator.isValid(url));
-   }
-   
-   public void testManualTest5()
-   {
-	   /* 
-	    * Assert 
-	    * ht://www.google.com 
-	    * is invalid 
-	    * */ 
-	   String[] schemes = {"http","https"};
-       UrlValidator urlValidator = new UrlValidator(schemes);
-       String url = "ht://www.google.com";
-       boolean isValid = false;
-       assertEquals(url, isValid, urlValidator.isValid(url));
-   }
-   
-   public void testManualTest6()
-   {
-	   /* 
-	    * Assert 
-	    * (blank)
-	    * is invalid 
-	    * */ 
-	   String[] schemes = {"http","https"};
-       UrlValidator urlValidator = new UrlValidator(schemes);
-       String url = "";
-       boolean isValid = false;
-       assertEquals(url, isValid, urlValidator.isValid(url));
-   }
+	public void testManualTest1() {
+		/*
+		 * Assert 
+		 * http://www.google.com is valid
+		 */
+		String[] schemes = { "http", "https" };
+		UrlValidator urlValidator = new UrlValidator(schemes);
+		String url = "http://www.google.com";
+		boolean isValid = true;
+		assertEquals(url, isValid, urlValidator.isValid(url));
+	}
+
+	public void testManualTest2() {
+		/*
+		 * Assert https://www.google.com is valid
+		 */
+		String[] schemes = { "http", "https" };
+		UrlValidator urlValidator = new UrlValidator(schemes);
+		String url = "https://www.google.com";
+		boolean isValid = true;
+		assertEquals(url, isValid, urlValidator.isValid(url));
+	}
+
+	public void testManualTest3() {
+		/*
+		 * Assert
+		 * https://www.yahoo.com/?err=404&err_url=https%3a%2f%2fwww.yahoo.com%2ftech%
+		 * 2frc%2fdesktops%2f102 is valid
+		 */
+		String[] schemes = { "http", "https" };
+		UrlValidator urlValidator = new UrlValidator(schemes);
+		String url = "https://www.yahoo.com/?err=404&err_url=https%3a%2f%2fwww.yahoo.com%2ftech%2frc%2fdesktops%2f102";
+		boolean isValid = true;
+		assertEquals(url, isValid, urlValidator.isValid(url));
+	}
+
+	public void testManualTest4() {
+		/*
+		 * Assert
+		 * https://www.yahoo.com/?err=404&err_url=https%3a%2f%2fwww.yahoo.com%2ftech%
+		 * 2frc%2fdesktops%2f102 is valid
+		 */
+		String[] schemes = { "http", "https" };
+		UrlValidator urlValidator = new UrlValidator(schemes);
+		String url = "https://www.yahoo.com/?err=404&err_url=https%3a%2f%2fwww.yahoo.com%2ftech%2frc%2fdesktops%2f102";
+		boolean isValid = true;
+		assertEquals(url, isValid, urlValidator.isValid(url));
+	}
+	
+	public void testManualTest5() {
+		/*
+		 * Assert
+		 * https://www.yahoo.com:80 is valid
+		 */
+		String[] schemes = { "http", "https" };
+		UrlValidator urlValidator = new UrlValidator(schemes);
+		String url = "https://www.yahoo.com:80";
+		boolean isValid = true;
+		assertEquals(url, isValid, urlValidator.isValid(url));
+	}
+
+	public void testManualTest6() {
+		/*
+		 * Assert ht://www.google.com is invalid
+		 */
+		String[] schemes = { "http", "https" };
+		UrlValidator urlValidator = new UrlValidator(schemes);
+		String url = "ht://www.google.com";
+		boolean isValid = false;
+		assertEquals(url, isValid, urlValidator.isValid(url));
+	}
+
+	public void testManualTest7() {
+		/*
+		 * Assert (blank) is invalid
+		 */
+		String[] schemes = { "http", "https" };
+		UrlValidator urlValidator = new UrlValidator(schemes);
+		String url = "";
+		boolean isValid = false;
+		assertEquals(url, isValid, urlValidator.isValid(url));
+		
+		url = "http://www.google.com";
+		isValid = false;
+		assertEquals(url, isValid, urlValidator.isValid(url));
+	}
    
    
    public void testYourFirstPartition()
